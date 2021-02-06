@@ -1,0 +1,211 @@
+
+===============================================================
+    Decorator Quiz 
+===============================================================
+Select the most complete answer A,B,C, or D
+A decorator is 
+  
+   A) a function that "wraps" around some other function
+      the decorator extends the behavior of that function 
+      without explicitly modifying the function
+
+   B) used to modify the behavior of some function 
+
+   C) decorators are only used on function calls 
+
+   D) a pythonic device to make functions reusable
+
+Ans:  A 
+
+Explanation:
+    A) is the most complete answer
+    B) is true, but not complete
+    C) is not true, you can also use decorators on class objects
+    D) while true, it does not convey as much information as option A 
+===============================================================
+
+Which best describes this syntax:     @decorator
+
+    a) PEP 612 Parameter Specification 
+    b) syntatic sugar
+    c) a semantic class variable
+    d) a functional constructor  
+
+Ans: B
+Explanation:
+    A) PEP 612 is about Parameter Specification Variables,
+       and does mention decorators, but is much broader in scope
+    B) this is the answer we were looing for, while "syntatic sugar"
+       is computer science slang for "to make things easier to read or express"
+       it captures the essence of deocoratrs, as that is precisely what they do.
+    C) definitely not true
+    D) partially true, but does not convey the complete picture
+===============================================================
+
+Select the following items that are true
+for a python first class object (PFCO)
+
+   a) PFCO can be used as arguments to functions
+   b) PFCO can be handeled uniformly 
+   c) PFCO can be stored in a variable.
+   d) a string is a PFCO
+   e) a lambda function is a PFCO
+
+ Ans:  all are True
+
+ Explanation:
+       Yes Dorothy, they are all True statements.
+
+===============================================================
+check all that are true
+  a function can return 
+
+   __ iterable
+   -- another function
+   __ string
+   -- number
+
+    Ans:  All are True
+
+ Explanation:
+       Yes Virginia, they are all True statements.
+===============================================================
+
+Identify the correct syntax to return my_function()
+
+   a) return my_function()
+   b) return *my_function
+   c) return my_function
+   d) return my_function.address()
+
+    Ans: C
+
+Explanation:
+   a) the parentheses is translated by the interpreter to mean
+      "call this function" which is not what you intended
+      when you are returning this function, that will be called
+
+   b) in python the asterick has many uses, one of which is "unpack"
+      used on iterables as described in PEP 646 -- Variadic Generics
+      there is no "unpack" for a function
+      (hoping to trip up C-coders here, where astrick means "pointer to")
+
+   c) the correct answer
+
+   d) definitely not corrrect, and the interpreter will raise 
+      the following exception 
+      AttributeError: 'function' object has no attribute 'address'
+
+===============================================================
+including this line:  @functools.wraps(func)
+in your decorator does what for you ?
+
+    a) required to pass parameters to the decorator
+    b) you need this line to pass *args and **kwargs
+    c) its more "pythonic" to do this
+    d) copy over the lost metadata from the undecorated function
+    
+Ans:  D
+
+    a) wraps is NOT required to pass parameters to a decorator
+    b) wraps is NOT required to pass *args and **kwargs
+    c) this statement just misses the point of wraps
+    d) You can use functools.wraps in your own decorators to copy over 
+       the lost metadata from the undecorated function to the decorator closure. 
+       This makes it easier to debug decorators.
+       When you use a decorator, really what you’re doing is replacing one function with another.
+       One downside of this process is that it “hides” some of the metadata
+       attached to the original (undecorated) function.
+          Ref: https://dbader.org/blog/python-decorators
+
+=======================================================
+    Coding Example:
+
+ build a sandwich
+
+start with 
+
+def sandwich(cold_cuts):
+    print(cold_cuts)
+
+sandwich('ham')
+
+output:    
+        ham
+
+
+create a bread decorator that wraps sandwich 
+output:
+      italian bread
+      ham
+      italian bread 
+
+update your bread decorator, so you can have any one of the following:
+      white bread,  rye toast, baquette
+
+create an second decorator  to add ingredients 
+      lettuce, swiss cheese,  american cheese, peppers, oregano, salt, oil
+      mayonnaise 
+
+Just one possible output:
+
+     white bread
+     lettuce
+     swiss cheese
+     ham 
+     mayonnaise 
+     white bread
+=======================================================
+I failed here my sandwich coding example throws, and I don't understand why
+
+      python sandwich_decorator.py
+       bread inputs=(<function sandwich at 0x10b057d30>,)
+      italian bread
+      Traceback (most recent call last):
+        File "sandwich_decorator.py", line 33, in <module>
+          def sandwich(cold_cuts):
+        File "sandwich_decorator.py", line 16, in wrapper_bread
+          func(*args, **kwargs)
+      TypeError: 'str' object is not callable
+
+
+
+# file: sandwich_decorator.py
+#
+# Ref:  
+# Ref:  https://realpython.com/lessons/passing-multiple-arguments/
+#
+import functools
+
+# the bread decorator
+def bread(func):
+    @functools.wraps(func)
+    def wrapper_bread(*args, **kwargs):
+        bread_chosen = "italian bread"   # the default
+        inputs = args
+        print(' bread inputs={}'.format(inputs))
+        print(bread_chosen)
+        func(*args, **kwargs)
+        print(bread_chosen)
+    return wrapper_bread
+
+# ingredients
+def ingredients(func):
+    @functools.wraps(func)
+    def wrapper_ingredients(*args, **kwargs):
+        print('  tomatoes')
+        func(*args, **kwargs)
+        print(' lettuce')
+    return wrapper_ingredients
+
+
+@bread("white toast")
+#@bread
+@ingredients
+def sandwich(cold_cuts):
+    print('   ',cold_cuts)
+
+sandwich('ham')
+#cold_cuts('ham', 'cheese','lettuce','peppers','oregano') 
+
+
