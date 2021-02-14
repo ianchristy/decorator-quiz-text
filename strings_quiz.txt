@@ -1,0 +1,359 @@
+Strings  quiz.    Feb 2021
+
+---------------------------------------------------------------------------
+Given  s = "spam"   and n = 2
+what is the output of print(2*s) 
+
+  a) 'ss'
+  b) 'spamspam'
+  c) TypeError: unsupported operand type(s) for +: 'int' and 'str'
+  d) '2spam'
+
+Ans:  b)  'spamspam'
+
+Explanation:
+   in python you can repeat strings n times by specifying  n * <some_string> 
+   the operation is communtative, so <some_strin> * n  works as well.
+  
+
+---------------------------------------------------------------------------
+What does ord('a') return ? 
+
+   a) 'a')
+   b) None
+   c) 97
+   d) TypeError: ord() expected a character, but string of length 1 found
+   e) TypeError: an integer is required (got type str)
+
+Ans: c)  ord returns a string representing the Unicode code point for a single character
+   characters in a computer are represented by numbers, there are many ways of doing this.
+   old style ASCII codes uses 7 bits to represent a set of characters, using 0 to 127
+   Unicode standard has room for over 1 million code points, and is a superset of ASCII.
+   they are called "code points" because they are position dependent,
+   with Unicode being divided into seventeen planes. 
+   This seemingly complicated schema is actually quite efficent at using the minimum number
+   of bits to represent a large range of characters.   
+
+
+---------------------------------------------------------------------------
+Given    s = 'I am a string'     what is the value of s[6] ?
+
+    a)  's'
+    b)  None
+    c)  ' '
+    d)  'a'
+
+Ans:   c) strings start counting at zero 
+
+     'I am a string'
+      0   4 6  8 
+
+
+
+---------------------------------------------------------------------------
+In python 3 and above What is the output of  print(chr(32)) ?
+
+    a) ' '
+    b) '\s'
+    c) space 
+    d) None
+
+Ans:  a) chr converts Unicode to the character,   in this case 32 is a space 
+
+
+
+---------------------------------------------------------------------------
+What does  str(3 * 9)  return ?
+
+    a) '27'
+    b)  27 
+    c) '333333333'
+    d) '32'
+
+
+Ans:   a) the string '27'
+
+
+Explanation:  python performs the arithmetic multiplication first, 
+              getting the numeric value of 27, 
+              then converts that number to a string representation '27'
+
+
+
+---------------------------------------------------------------------------
+What does "spam i am"[::-1]   return ? 
+
+    a) ''
+    b) 'i am spam' 
+    c) 'ma i maps'
+    d) 'm'
+    e) 's' 
+
+Ans:   c)  the slice operator [::-1] has the effect of reversing the string
+
+
+---------------------------------------------------------------------------
+Given  t=''    what does type(t)  return ?
+
+    a) <'str'>
+    b) ''
+    c) <class 'None'>
+    d) <class 'str'>
+
+
+Ans:   d)  <class 'str'>  
+
+
+---------------------------------------------------------------------------
+Given  t=''    what does  t[0] return ? 
+
+   a) IndexError: string index out of range
+   b) ''
+   c) None 
+   d) 0
+
+Ans:  a) while the length of the string is zero(0)
+         there is nothing in the zero'th  position 
+         in python, strings start counting at zero
+
+
+
+---------------------------------------------------------------------------
+Given   s = 'mybacon'   what does   s[:2] + s[2:]  return? 
+
+    a) 'bb'
+    b) 'yb'
+    c) 'by'
+    d) 'yy'
+    e) 'mybacon'
+
+
+Ans:  e)  'mybacon'
+
+Explanation:
+    s[:2] - returns chars in positions zero to 1, in this case: 'my'
+    s[2:] - returns chars in positions two to the end of the string
+            in this case: 'bacon'
+    the plus operator combines the two strings into 'mybacon'
+
+---------------------------------------------------------------------------
+
+Given s = 'mybacon'    what does s[-5:-1] return ?
+
+      a) 'ybaco'
+      b) 'baco'
+      c) 'bacon'
+      d) 'mybac'
+
+
+Ans:   'baco'
+
+Explanation:  -5  starting at the end and counting left five
+                  yes 1,2,3,4,5  do not start with zero !
+                  this puts us to the 'b' character
+              -1  go to the last char minus one,
+                  n is the last char, and o is just in front of n
+              we are left with 'baco'
+
+---------------------------------------------------------------------------
+Given   var = 'Bark'
+which of the following print statements will throw an error ?
+
+     a) print(f'A dog says {var}!')
+
+     b) print(F"A dog says {var}!")
+
+     c) print(f'''A dog says {var}!''')
+
+     d) print(f'A dog says {var}!")
+
+     e) print(f"""A dog says {var}!""") 
+
+
+Ans: d throws the error:  SyntaxError: EOL while scanning string literal
+     because it starts with a single quote, but ends with a double quote
+
+Explanation:  the qutoes must be consistent, 
+              whatever you start with, you must end with the same
+
+---------------------------------------------------------------------------
+
+What happens if you attempt the following ?
+     >>>s = 'mybacon'
+     >>>s[2] = 'f'   
+
+
+    a) 'myfacon'
+    b) 'mybfcon'
+    c) 'f'
+    d) TypeError: 'str' object does not support item assignment
+    e) 'mybacon'
+    
+
+Ans:  d) strings are immutable, meaning you cannot change them
+
+Explanation:  you can achieve the result 'myfacon' with either of the following:
+     >>> s = 'mybacon'
+     >>> s = s[:2] + 'f' + s[3:]
+     >>> s
+     'myfacon'
+     >>> s = 'mybacon'
+     >>> t = s.replace('b', 'f')
+     >>> t
+     'myfacon'
+ 
+    replace, actually makes a copy of the string, so s remains un-changed
+  
+---------------------------------------------------------------------------
+
+Given  s = 'mybacon'   what does list(s) return ?
+
+       a)  ['m', 'y', 'f', 'a', 'c', 'o', 'n']
+       b)  ['mybcon']
+       c)  ['m', 'y', 'b', 'a', 'c', 'o', 'n']
+       d)  ['n', 'o', 'c', 'a', 'b', 'y', 'm']
+       e)  ['mybacon']
+
+
+Ans:  c) list, "breaks" up the string of characters, into a list
+         of individual characters
+
+Explanation:
+      type(s) <class 'str'>,  strings are immutable 
+      type(list(s))  <class 'list'>,  which is mutable
+
+---------------------------------------------------------------------------
+
+Select all that are True
+
+   a) lists are enclosed in square brackets [] and are mutable
+
+   b) characters are inclosed in quotes ' and are mutable
+
+   c) tuples are enclosed in parentheses () and are mutable
+
+   d) dictionaries are enclosed in parentheses () and are mutable
+
+   e) tuples are enclosed in parentheses () and are immutable
+
+Ans: a and e
+
+Explanation:
+   Immutable Objects: types like int, float, bool, string, unicode, tuple.
+      In simple words, an immutable object can’t be changed after it is created.
+   b) type('c') is <class 'str'>, and is therefore immutable
+
+   Mutable Objects: type list, dict, set, and custom classes are generally mutable.
+
+---------------------------------------------------------------------------
+
+Given  s = 'egg.spam'     what will s.partition('.')  yield ?
+
+   a)  ('egg', '.', 'spam')
+   b)  ['egg','.','spam']
+   c)  ('egg','spam')
+   d)  ['egg','spam']
+   e)  {'egg':'spam'}
+
+
+Ans:   a) 
+
+Explanation:  The partition() method splits the string at the first occurrence of the
+              argument string and returns a tuple containing the part the before separator,
+              argument string and the part after the separator.
+
+---------------------------------------------------------------------------
+
+Given 
+
+>>> moby = 'Call me Ishmael.\nSome years ago- never mind how long precisely-\nhaving little or no money in my purse,\nand nothing particular to interest me on shore,\nI thought I would sail about a little and see the watery part of the world.\n'
+>>> mobysplit = moby.splitlines()
+
+
+>>> mobysplit[0]   returns what ? 
+
+     a) 'Call'
+     b) 'Call me Ishmael.'
+     c) 'Call me Ishmael.\n'
+     d) 'Some years ago-'
+     e) 'part of the world.\n'
+
+Ans:     b) 
+
+Explanation: The splitlines() method splits a string into a list. The splitting is done at line breaks, '\n'
+
+---------------------------------------------------------------------------
+
+Given:   mylist = ['spam', 'egg', 'sausage', 'bacon', 'lobster']
+
+what does  '; '.join(mylist)   return ? 
+
+
+   a) 'spam; egg; sausage; bacon; lobster'
+   b) 'spam;egg;sausage;bacon;lobster'
+   c) 'spam, egg, sausage, bacon, lobster'
+   d) 'spam egg sausage bacon lobster'
+   e) 'spam; egg, sausage; bacon, lobster'
+
+
+Ans:  a)
+
+Explanation: The join() method takes all items in an iterable and joins them into one string.
+             A string must be specified as the separator, in this case, '; '  is the seperator string.
+
+---------------------------------------------------------------------------
+
+Given:   word='lobster'   what does ':'.join(word)  return ? 
+
+    a) 'l:o:b:s:t:e:r'
+    b) ':lobster'
+    c) 'lobster:'
+    d) ':lobster:'
+    e) 'lobster'
+
+
+Ans:  a 
+
+Explanation: word is of class <str>, it is an iterable, and the join() method 
+           iterates over every letter in the string, joining it with a colon
+
+---------------------------------------------------------------------------
+
+Given:  door = ['spam', 23, 'egg', 'barn']
+        what does ', '.join(door)    return ?
+
+    a) 'spam, 23, egg, barn'
+    b) 'spam:', '23:',  'egg:'  'barn']
+    c) TypeError: sequence item 1: expected str instance, int found
+    d) 'spam23eggbarn'
+    e) 'spam, 23, egg, barn,'
+
+Ans: c)  
+
+Explanation: 
+    The join() method takes all items in an iterable and joins them into one string.
+    all of the elements in the iterable must be of type string
+
+---------------------------------------------------------------------------
+
+Given  t= 'egg$$spam$$bacon$$turkey$$hamburger'
+       what will t.partition('$$')  return ?
+
+    a) ['egg', '$$', 'spam$$bacon$$turkey$$hamburger']
+    b) ['egg', 'spam', 'bacon', 'turkey', 'hamburger']
+    c) ('egg', 'spam', 'bacon', 'turkey', 'hamburger') 
+    d) ('egg', '$$', 'spam$$bacon$$turkey$$hamburger')
+    e) ('egg', '$$', 'spam', '$$', 'turkey', '$$', 'hamburger']
+
+
+Ans:  d)   ('egg', '$$', 'spam$$bacon$$turkey$$hamburger')
+
+Explanation:  
+    The partition() method searches for the first occurence of a specified string, 
+    then splits the string into a three part tuple.
+
+        first  element contains the part before the specified string.
+        second element contains the specified string.
+        third  element contains the part after the string.
+ 
+---------------------------------------------------------------------------
